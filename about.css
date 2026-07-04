@@ -1,0 +1,23 @@
+.page-hero-about {
+  background: linear-gradient(rgba(36,18,70,0.75), rgba(36,18,70,0.88)), url("images/about-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 140px 0 90px;
+}
+
+.about-seal-block { background: var(--primary-deep); color: var(--paper); padding: 40px; border-radius: 6px; text-align: center; }
+.about-seal-block p { margin-top: 18px; font-size: 13px; color: rgba(253,252,251,0.6); }
+
+.timeline { display: flex; flex-direction: column; }
+.timeline-row { display: grid; grid-template-columns: 70px 24px 1fr; gap: 20px; }
+.timeline-year { font-family: 'IBM Plex Mono', monospace; color: var(--accent-light); padding-top: 2px; }
+.timeline-line { display: flex; flex-direction: column; align-items: center; }
+.timeline-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.timeline-connector { flex: 1; width: 1px; background: rgba(253,252,251,0.2); margin-top: 4px; }
+.timeline-row p { color: rgba(253,252,251,0.72); padding-bottom: 34px; font-size: 15px; margin: 0; }
+
+.leadership-block { max-width: 720px; text-align: center; margin: 0 auto; }
+.leadership-block svg { width: 28px; height: 28px; color: var(--accent); }
+.leadership-quote { font-family: 'Fraunces', serif; font-size: 21px; line-height: 1.5; margin: 18px 0 20px; color: var(--ink); }
+.leadership-name { display: flex; flex-direction: column; font-size: 14px; }
+.leadership-name span { color: #7a7358; font-size: 13px; margin-top: 2px; }

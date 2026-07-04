@@ -1,0 +1,5 @@
+.openings-list { display: flex; flex-direction: column; gap: 14px; }
+.opening-row { display: flex; justify-content: space-between; align-items: center; background: var(--paper); border: 1px solid rgba(30,27,46,0.1); padding: 20px 24px; border-radius: 5px; gap: 16px; flex-wrap: wrap; }
+.opening-row h4 { font-size: 16.5px; margin-bottom: 6px; }
+.opening-meta { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #7a7358; }
+.opening-meta svg { width: 13px; height: 13px; }
