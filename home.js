@@ -3,11 +3,11 @@
 /* ==================================================================== */
 
 const SLIDES = [
-  { image: "images/slide1.jpg", alt: "Arihant Finance — Empowering Dreams. Building Tomorrow." },
-  { image: "images/slide2.jpg", alt: "Arihant Finance — Your Growth. Our Commitment." },
-  { image: "images/slide3.jpg", alt: "Arihant Finance — Trust. Transparency. Together We Prosper." },
+  { image: "images/slide5.jpg", alt: "Arihant Finance — Empowering Dreams. Building Tomorrow." },
+  { image: "images/slide3.jpg", alt: "Arihant Finance — Your Growth. Our Commitment." },
+  { image: "images/slide2.jpg", alt: "Arihant Finance — Trust. Transparency. Together We Prosper." },
   { image: "images/slide4.jpg", alt: "Arihant Finance — Financing Today. Transforming Tomorrow." },
-  { image: "images/slide5.jpg", alt: "Arihant Finance — Secure Investments. Promising Futures." },
+  { image: "images/slide1.jpg", alt: "Arihant Finance — Secure Investments. Promising Futures." },
 ];
 
 /* ==================================================================== */
