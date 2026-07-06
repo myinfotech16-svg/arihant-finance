@@ -91,7 +91,8 @@ img { max-width: 100%; display: block; }
 /* ---------- values grid (used on About + Career) ---------- */
 .values-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
 .value-card { background: var(--paper); border: 1px solid rgba(30,27,46,0.1); padding: 22px; border-radius: 5px; }
-.value-card .icon-badge { margin-bottom: 6px; }
+.value-card .icon-badge { margin-bottom: 6px; box-shadow: 0 8px 18px rgba(241,137,46,0.28); transition: transform 0.2s ease; }
+.value-card:hover .icon-badge { transform: translateY(-3px); }
 .value-card h4 { font-size: 16px; margin: 12px 0 6px; }
 .value-card p { font-size: 13.5px; color: #566; margin: 0; }
 @media (max-width: 900px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }

@@ -17,7 +17,7 @@ const MILESTONES = [
 
 function renderValues() {
   document.getElementById("valuesGrid").innerHTML = VALUES.map((v) => `
-    <div class="value-card"><span class="icon-badge violet sm">${iconSVG(v.icon, 19)}</span><h4>${v.name}</h4><p>${v.desc}</p></div>`).join("");
+    <div class="value-card"><span class="icon-badge gradient-fill sm">${iconSVG(v.icon, 19)}</span><h4>${v.name}</h4><p>${v.desc}</p></div>`).join("");
 }
 
 function renderTimeline() {

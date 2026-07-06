@@ -15,7 +15,7 @@ const OPENINGS = [
 
 function renderBenefits() {
   document.getElementById("benefitsGrid").innerHTML = BENEFITS.map((b) => `
-    <div class="value-card"><span class="icon-badge violet sm">${iconSVG(b.icon, 19)}</span><h4>${b.name}</h4><p>${b.desc}</p></div>`).join("");
+    <div class="value-card"><span class="icon-badge gradient-fill sm">${iconSVG(b.icon, 19)}</span><h4>${b.name}</h4><p>${b.desc}</p></div>`).join("");
 }
 
 function renderOpenings() {
