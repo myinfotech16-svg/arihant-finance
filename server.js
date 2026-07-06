@@ -6,7 +6,10 @@ const PORT = process.env.PORT || 3000;
 
 // Serve every file in this folder exactly as requested — no automatic URL
 // rewriting, so query strings like ?id=housing-loan are never touched.
-app.use(express.static(__dirname));
+// { index: false } stops it from auto-serving index.html at "/" — our own
+// route below handles "/" instead, giving an instant redirect with no
+// visible flash of the old placeholder page.
+app.use(express.static(__dirname, { index: false }));
 
 // Convenience redirects: if someone visits a page without the .html
 // extension (e.g. /home, /about, /service-detail?id=housing-loan),
