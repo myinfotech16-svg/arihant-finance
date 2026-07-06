@@ -1,10 +1,15 @@
 {
-  "name": "arihant-finance",
+  "name": "arihant-finance-website",
   "version": "1.0.0",
+  "private": true,
+  "description": "Arihant Finance Public Limited Company — website",
   "scripts": {
-    "start": "serve . -l $PORT"
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
-    "serve": "^14.0.0"
+    "express": "^4.19.2"
   }
 }

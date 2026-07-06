@@ -157,7 +157,11 @@ function serviceCardHTML(s) {
     <a class="service-card" href="service-detail.html?id=${s.id}"
        onclick="sessionStorage.setItem('serviceId','${s.id}')">
       <span class="service-card-num">${s.num}</span>
-      <span class="icon-badge violet">${iconSVG(s.icon, 24)}</span>
+      <div class="service-card-media">
+        <span class="icon-badge gradient-fill service-card-fallback">${iconSVG(s.icon, 26)}</span>
+        <img src="images/services/${s.id}.jpg" alt="${s.name}" class="service-card-img"
+             onerror="this.style.display='none'" />
+      </div>
       <h3>${s.name}</h3>
       <p>${s.tagline}</p>
       <span class="service-card-link">View details ${iconSVG("arrowRight", 14)}</span>
@@ -211,10 +215,14 @@ function initHeader() {
   const wrap = document.getElementById("servicesDropdownWrap");
   const panel = document.getElementById("dropdownPanel");
   if (wrap && panel) {
-    // Open on click — 100% reliable, no timing issues
+    // On touch devices (no hover), first tap reveals the dropdown instead of navigating.
+    // If the dropdown is already open (e.g. desktop, opened via hover), the click
+    // falls through and navigates to services.html like a normal link.
     wrap.querySelector('.nav-link').addEventListener('click', function(e) {
-      e.preventDefault();
-      panel.classList.toggle('open');
+      if (!panel.classList.contains('open')) {
+        e.preventDefault();
+        panel.classList.add('open');
+      }
     });
     // Close when clicking anywhere outside
     document.addEventListener('click', function(e) {
