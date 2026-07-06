@@ -38,7 +38,12 @@ const ICONS = {
   linkedin: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 10v7"/><circle cx="7.5" cy="7" r="1"/><path d="M11.5 17v-4c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v4"/><path d="M11.5 10v7"/>',
   instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/>',
   target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
-  handshake: '<path d="M2 12l4-4 4 3-2 2"/><path d="M22 12l-4-4-4 3 2 2"/><path d="M10 11l2 2 2-2 3.5 3.5a1.6 1.6 0 0 1-2.3 2.3L14 15.5"/><path d="M10 11l-1.5 1.5a1.6 1.6 0 0 0 2.3 2.3"/><path d="M12.3 15.3a1.6 1.6 0 0 0 2.3 2.2"/>',
+  handshake: '<path d="M3 11.5l3.3-3.3a2 2 0 0 1 2.8 0L11 10"/><path d="M21 11.5l-3.3-3.3a2 2 0 0 0-2.8 0L13 10"/><path d="M8 12.3l2.6 2.6a1.9 1.9 0 0 0 2.8 0l2.6-2.6"/><path d="M3 11.5l4.5 4.5"/><path d="M21 11.5l-4.5 4.5"/>',
+  building: '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 21v-3h6v3"/><path d="M8 7h1M8 10h1M8 13h1M12 7h1M12 10h1M12 13h1M16 7h1M16 10h1M16 13h1"/>',
+  shieldCheck: '<path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/><path d="M9 12.2l2.1 2.1L15.5 10"/>',
+  barsUpArrow: '<rect x="4" y="14" width="3" height="6" rx="0.5"/><rect x="9.5" y="10" width="3" height="10" rx="0.5"/><rect x="15" y="6" width="3" height="14" rx="0.5"/><path d="M16.5 6l4-4"/><path d="M17.3 2h3.2v3.2"/>',
+  shareholderGroup: '<circle cx="12" cy="8" r="3"/><path d="M7 19c0-3 2.2-5 5-5s5 2 5 5"/><circle cx="5.5" cy="9.5" r="2.1"/><path d="M2.2 19c0-2.2 1.5-4 3.3-4"/><circle cx="18.5" cy="9.5" r="2.1"/><path d="M21.8 19c0-2.2-1.5-4-3.3-4"/>',
+  fileCheckBadge: '<path d="M6 3h9l3 3v15H6z"/><path d="M15 3v3h3"/><path d="M9 10.5h6M9 13.5h4"/><circle cx="17" cy="17" r="4"/><path d="M15.3 17l1.2 1.2 2.2-2.2"/>',
 };
 
 function iconSVG(name, size) {

@@ -7,11 +7,12 @@ const VALUES = [
 ];
 
 const MILESTONES = [
-  { year: "1998", text: "Arihant Finance founded in Jaipur with a single branch and a group-lending model for local self-help groups." },
-  { year: "2005", text: "Expanded into rural Rajasthan with dedicated dairy and agri-linked lending products." },
-  { year: "2012", text: "Converted to a public limited company to widen access to long-term capital for lending operations." },
-  { year: "2018", text: "Crossed 100 branches; launched dedicated SME and vehicle finance verticals." },
-  { year: "2024", text: "Introduced digital application and Just-in-Time disbursal for pre-approved customers." },
+  { year: "1993", icon: "building", title: "Company Incorporated", text: "Arihant Finance (India) Limited was incorporated as a financial services company in Tamil Nadu." },
+  { year: "1998", icon: "barsUpArrow", title: "NBFC Operations Expansion", text: "Expanded lending and investment activities with a stronger regional financial presence." },
+  { year: "2005", icon: "shareholderGroup", title: "Growth in Shareholder Base", text: "Strengthened investor participation and expanded corporate financial operations." },
+  { year: "2012", icon: "shieldCheck", title: "Public Limited Company Development", text: "Enhanced governance structure and compliance systems as a public limited company." },
+  { year: "2024", icon: "fileCheckBadge", title: "Financial & Compliance Strengthening", text: "Completed annual audits, board reporting, shareholder updates, and financial compliance filings." },
+  { year: "2025", icon: "handshake", title: "Authorized Share Capital Increased", text: "Authorized share capital increased from ₹3.3 Crores to ₹6 Crores through shareholder approval and ROC filing." },
 ];
 
 function renderValues() {
@@ -27,7 +28,11 @@ function renderTimeline() {
         <span class="timeline-dot"></span>
         ${i !== MILESTONES.length - 1 ? '<span class="timeline-connector"></span>' : ""}
       </div>
-      <p>${m.text}</p>
+      <span class="icon-badge on-dark timeline-icon">${iconSVG(m.icon, 24)}</span>
+      <div class="timeline-content">
+        <h4>${m.title}</h4>
+        <p>${m.text}</p>
+      </div>
     </div>`).join("");
 }
 
