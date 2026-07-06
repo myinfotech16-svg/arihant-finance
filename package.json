@@ -1,0 +1,10 @@
+{
+  "name": "arihant-finance",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve . -l $PORT"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}
