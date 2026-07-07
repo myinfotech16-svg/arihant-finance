@@ -37,7 +37,7 @@ function renderTimeline() {
 }
 
 function renderAboutSeal() {
-  document.getElementById("aboutSeal").innerHTML = sealSVG(180, "accent");
+  document.getElementById("aboutSeal").innerHTML = sealSVG(40, "accent");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
