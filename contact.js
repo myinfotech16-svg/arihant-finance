@@ -18,16 +18,19 @@ function initContactForm() {
   const form = document.getElementById("enquiryForm");
   const success = document.getElementById("enquirySuccess");
   const successText = document.getElementById("successText");
+  const submitBtn = form.querySelector('button[type="submit"]');
 
   document.getElementById("successSeal").innerHTML = sealSVG(90, "accent");
   document.getElementById("contactSeal").innerHTML = sealSVG(110, "accent");
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("fName").value.trim();
     const email = document.getElementById("fEmail").value.trim();
     const phone = document.getElementById("fPhone").value.trim();
     const interest = document.getElementById("fInterest").value;
+    const message = document.getElementById("fMessage").value.trim();
+    const website = document.getElementById("fWebsite") ? document.getElementById("fWebsite").value : "";
 
     let valid = true;
     const setErr = (id, show) => document.getElementById(id).classList.toggle("show", show);
@@ -39,9 +42,31 @@ function initContactForm() {
 
     if (!valid) return;
 
-    successText.innerHTML = `Thank you, ${name.split(" ")[0]}. Your enquiry regarding <strong>${interest}</strong> has been logged. A relationship manager will contact you at ${phone} within one working day.`;
-    form.classList.add("hide");
-    success.classList.add("show");
+    submitBtn.disabled = true;
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = "Submitting…";
+
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, interest, message, website }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
+      successText.innerHTML = `Thank you, ${name.split(" ")[0]}. Your enquiry regarding <strong>${interest}</strong> has been logged. A relationship manager will contact you at ${phone} within one working day.`;
+      form.classList.add("hide");
+      success.classList.add("show");
+    } catch (err) {
+      alert(err.message || "Could not submit your enquiry. Please check your connection and try again.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
   });
 
   document.getElementById("anotherEnquiryBtn").addEventListener("click", () => {
