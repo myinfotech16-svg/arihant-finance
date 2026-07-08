@@ -2,3 +2,9 @@
    The services grid + card look (.services-grid, .service-card) is shared with
    service-detail.html, so it lives in common/common.css to avoid duplication.
    Add any Services-page-only overrides below. */
+
+.page-hero-services {
+  background: linear-gradient(rgba(36,18,70,0.45), rgba(36,18,70,0.65)), url("images/services-bg.jpg");
+  background-size: cover;
+  background-position: center;
+}

@@ -17,7 +17,7 @@ function getServiceId() {
 function serviceDetailHTML(service) {
   const related = SERVICES.filter((s) => s.id !== service.id).slice(0, 4);
   return `
-    <section class="service-hero">
+    <section class="service-hero" style="background-image: linear-gradient(rgba(36,18,70,0.55), rgba(36,18,70,0.72)), url('images/service-hero/${service.id}.jpg'); background-size: cover; background-position: center;">
       <div class="container">
         <a class="breadcrumb" href="services.html">Services</a>
         <span class="breadcrumb-sep">/</span>

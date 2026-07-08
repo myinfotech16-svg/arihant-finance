@@ -1,8 +1,15 @@
-.page-hero-about {
-  background: linear-gradient(rgba(36,18,70,0.75), rgba(36,18,70,0.88)), url("images/about-bg.jpg");
+.page-hero-image {
+  width: 100%; aspect-ratio: 1920 / 650; max-height: 560px; overflow: hidden;
+  background: linear-gradient(rgba(36,18,70,0.35), rgba(36,18,70,0.55)), url("images/about-bg.jpg");
   background-size: cover;
   background-position: center;
-  padding: 140px 0 90px;
+  display: flex; align-items: center;
+  color: var(--paper);
+}
+.page-hero-image h1 { color: var(--paper); font-size: clamp(30px, 4.4vw, 46px); max-width: 700px; margin-bottom: 14px; }
+.page-hero-image p { color: rgba(253,252,251,0.7); max-width: 560px; font-size: 16px; margin: 0; }
+@media (max-width: 640px) {
+  .page-hero-image { aspect-ratio: 4 / 3; max-height: 420px; }
 }
 
 /* ---------- story / vision photo collage ---------- */
