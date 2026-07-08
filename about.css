@@ -6,8 +6,8 @@
   display: flex; align-items: center;
   color: var(--paper);
 }
-.page-hero-image h1 { color: var(--paper); font-size: clamp(30px, 4.4vw, 46px); max-width: 700px; margin-bottom: 14px; }
-.page-hero-image p { color: rgba(253,252,251,0.7); max-width: 560px; font-size: 16px; margin: 0; }
+.page-hero-image h1 { color: var(--paper); font-size: clamp(30px, 4.4vw, 46px); max-width: 620px; margin-bottom: 14px; }
+.page-hero-image p { color: rgba(253,252,251,0.7); max-width: 520px; font-size: 16px; margin: 0; }
 @media (max-width: 640px) {
   .page-hero-image { aspect-ratio: 4 / 3; max-height: 420px; }
 }
