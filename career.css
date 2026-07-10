@@ -1,3 +1,9 @@
+.page-hero-career {
+  background: linear-gradient(rgba(36,18,70,0.4), rgba(36,18,70,0.6)), url("images/career-bg.jpg");
+  background-size: cover;
+  background-position: center 30%;
+}
+
 .openings-list { display: flex; flex-direction: column; gap: 14px; }
 .opening-row { display: flex; justify-content: space-between; align-items: center; background: var(--paper); border: 1px solid rgba(30,27,46,0.1); padding: 20px 24px; border-radius: 5px; gap: 16px; flex-wrap: wrap; }
 .opening-row h4 { font-size: 16.5px; margin-bottom: 6px; }
