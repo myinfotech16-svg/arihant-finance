@@ -23,6 +23,49 @@ function initContactForm() {
   document.getElementById("successSeal").innerHTML = sealSVG(90, "accent");
   document.getElementById("contactSeal").innerHTML = sealSVG(110, "accent");
 
+  // Real-time: strip any non-digit characters and cap at 10 digits as the user types
+  const phoneInput = document.getElementById("fPhone");
+  phoneInput.addEventListener("input", () => {
+    phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+    // Clear the error the moment it becomes valid again, so it doesn't linger unnecessarily
+    if (phoneInput.value.length === 10) {
+      document.getElementById("errPhone").classList.remove("show");
+    }
+  });
+
+  // Show the error as soon as the user leaves the field with an incomplete number —
+  // don't make them wait until they click Submit to find out
+  phoneInput.addEventListener("blur", () => {
+    const digits = phoneInput.value.length;
+    const errEl = document.getElementById("errPhone");
+    if (digits > 0 && digits < 10) {
+      errEl.textContent = `Enter a 10-digit number — ${10 - digits} more digit${10 - digits === 1 ? "" : "s"} needed`;
+      errEl.classList.add("show");
+    } else if (digits === 0) {
+      errEl.classList.remove("show"); // don't nag on an empty field they haven't touched yet
+    }
+  });
+
+  // Email: allow only characters a real email address can contain
+  // (letters, numbers, @ . _ - +) — silently strip anything else as they type
+  const emailInput = document.getElementById("fEmail");
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
+  emailInput.addEventListener("input", () => {
+    emailInput.value = emailInput.value.replace(/[^a-zA-Z0-9@._%+-]/g, "");
+    if (emailPattern.test(emailInput.value)) {
+      document.getElementById("errEmail").classList.remove("show");
+    }
+  });
+  emailInput.addEventListener("blur", () => {
+    const errEl = document.getElementById("errEmail");
+    if (emailInput.value.length > 0 && !emailPattern.test(emailInput.value)) {
+      errEl.textContent = "Enter a valid email address";
+      errEl.classList.add("show");
+    } else if (emailInput.value.length === 0) {
+      errEl.classList.remove("show");
+    }
+  });
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("fName").value.trim();

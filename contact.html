@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="images/favicon.png" />
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Contact Us — Arihant Finance Public Limited Company</title>
@@ -77,25 +75,25 @@
         <div class="enquiry-form-card">
           <form id="enquiryForm" novalidate>
             <div class="form-field">
-              <label><span class="field-num">01</span> Full Name</label>
-              <input type="text" id="fName" placeholder="As per identity proof" />
+              <label><span class="field-num">01</span> Full Name <em class="required-mark">*</em></label>
+              <input type="text" id="fName" placeholder="As per identity proof" required />
               <span class="field-error" id="errName">Required</span>
             </div>
             <div class="form-row">
               <div class="form-field">
-                <label><span class="field-num">02</span> Email</label>
-                <input type="email" id="fEmail" placeholder="you@example.com" />
+                <label><span class="field-num">02</span> Email <em class="required-mark">*</em></label>
+                <input type="email" id="fEmail" placeholder="you@example.com" required />
                 <span class="field-error" id="errEmail">Enter a valid email</span>
               </div>
               <div class="form-field">
-                <label><span class="field-num">03</span> Phone</label>
-                <input type="tel" id="fPhone" placeholder="10-digit mobile number" />
+                <label><span class="field-num">03</span> Phone <em class="required-mark">*</em></label>
+                <input type="tel" id="fPhone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" required />
                 <span class="field-error" id="errPhone">Enter a 10-digit number</span>
               </div>
             </div>
             <div class="form-field">
-              <label><span class="field-num">04</span> Loan / Service of Interest</label>
-              <select id="fInterest"><option value="">Select an entry</option></select>
+              <label><span class="field-num">04</span> Loan / Service of Interest <em class="required-mark">*</em></label>
+              <select id="fInterest" required><option value="">Select an entry</option></select>
               <span class="field-error" id="errInterest">Please choose one</span>
             </div>
             <div class="form-field">
@@ -149,7 +147,8 @@
   </div>
   <div class="container"><div class="ledger-rule"></div></div>
   <div class="footer-bottom">
-    <span>© 1993–2026 Arihant Finance Public Limited Company. All rights reserved.</span>
+    <span>© 1998–2026 Arihant Finance Public Limited Company. All rights reserved.</span>
+    <span>CIN &amp; NBFC registration details available on request at any branch.</span>
   </div>
 </footer>
 

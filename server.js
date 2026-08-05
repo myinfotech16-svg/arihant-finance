@@ -153,8 +153,8 @@ async function sendCustomerConfirmationEmail(entry) {
       `<p>A relationship manager will contact you at <strong>${entry.phone}</strong> within one working day.</p>`,
       `<p style="color:#888; font-size:13px;">If you did not submit this enquiry, please disregard this email.</p>`,
       `<p>— Arihant Finance Public Limited Company<br/>`,
-      `No.33,2 nd floor,2 nd street , Rukmani nagar, poonamalee, chennai-600056<br/>`,
-      `+91 81248 86539 · info@arihantfinance.co</p>`,
+      `14, Ledger House, MI Road, Jaipur, Rajasthan 302001<br/>`,
+      `+91 141 234 5678 · connect@arihantfinance.in</p>`,
     ].join("\n"),
   });
 }
@@ -194,7 +194,7 @@ app.post("/api/enquiry", async (req, res) => {
   if (!name || !email || !phone || !interest) {
     return res.status(400).json({ error: "Missing required fields." });
   }
-  if (!/^\S+@\S+\.\S+$/.test(email)) {
+  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/.test(email)) {
     return res.status(400).json({ error: "Invalid email address." });
   }
   if (!/^\d{10}$/.test(String(phone).replace(/\D/g, ""))) {
