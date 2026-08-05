@@ -153,8 +153,8 @@ async function sendCustomerConfirmationEmail(entry) {
       `<p>A relationship manager will contact you at <strong>${entry.phone}</strong> within one working day.</p>`,
       `<p style="color:#888; font-size:13px;">If you did not submit this enquiry, please disregard this email.</p>`,
       `<p>— Arihant Finance Public Limited Company<br/>`,
-      `14, Ledger House, MI Road, Jaipur, Rajasthan 302001<br/>`,
-      `+91 141 234 5678 · connect@arihantfinance.in</p>`,
+      `No.33,2 nd floor,2 nd street , Rukmani nagar, poonamalee, chennai-600056<br/>`,
+      `+91 81248 86539 · info@arihantfinance.co</p>`,
     ].join("\n"),
   });
 }
