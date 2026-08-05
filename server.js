@@ -75,6 +75,9 @@ const transporter = nodemailer.createTransport({
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_APP_PASSWORD,
   },
+  connectionTimeout: 8000, // fail fast instead of hanging if Gmail can't be reached
+  greetingTimeout: 8000,
+  socketTimeout: 8000,
 });
 
 async function sendBusinessNotificationEmail(entry) {
@@ -200,22 +203,22 @@ app.post("/api/enquiry", async (req, res) => {
     await saveEnquiryToDB(entry);
   } catch (e) {
     console.error("Failed to save enquiry to database:", e.message);
-    // Continue anyway — email notification below is the fallback.
+    // Continue anyway — the visitor's submission is still valid, email is the fallback record.
   }
 
-  try {
-    await sendBusinessNotificationEmail(entry);
-  } catch (e) {
-    console.error("Failed to send business notification email:", e.message);
-  }
-
-  try {
-    await sendCustomerConfirmationEmail(entry);
-  } catch (e) {
-    console.error("Failed to send customer confirmation email:", e.message);
-  }
-
+  // Respond to the visitor right away — don't make them wait on email,
+  // which can be slow or occasionally unreachable from some hosts.
   res.json({ ok: true });
+
+  // Emails are sent AFTER the response, in the background. If Gmail is slow
+  // or briefly unreachable, the visitor's form submission is unaffected —
+  // they've already seen "success" and the enquiry is already saved.
+  sendBusinessNotificationEmail(entry).catch((e) =>
+    console.error("Failed to send business notification email:", e.message)
+  );
+  sendCustomerConfirmationEmail(entry).catch((e) =>
+    console.error("Failed to send customer confirmation email:", e.message)
+  );
 });
 
 /* ==================================================================== */
