@@ -70,14 +70,17 @@ async function saveEnquiryToDB(entry) {
 /* ==================================================================== */
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // STARTTLS on port 587, instead of implicit TLS on 465 — more reliable on some cloud hosts
+  family: 4, // force IPv4 — some hosts have broken/slow IPv6 routing to external services
   auth: {
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_APP_PASSWORD,
   },
-  connectionTimeout: 8000, // fail fast instead of hanging if Gmail can't be reached
-  greetingTimeout: 8000,
-  socketTimeout: 8000,
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
 async function sendBusinessNotificationEmail(entry) {
