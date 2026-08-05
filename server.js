@@ -61,48 +61,49 @@ async function saveEnquiryToDB(entry) {
 }
 
 /* ==================================================================== */
-/*  EMAIL — Resend (HTTPS API, not SMTP)                                  */
+/*  EMAIL — Brevo (HTTPS API, not SMTP)                                   */
 /*  Railway blocks outbound SMTP for many accounts, so email is sent via  */
 /*  a normal HTTPS request instead, which is never blocked this way.      */
 /*  Set these as environment variables in Railway (Settings > Variables): */
-/*    RESEND_API_KEY   — from resend.com (API Keys page)                  */
-/*    RESEND_FROM       — a verified sender, e.g. "Arihant Finance        */
-/*                        <noreply@yourdomain.com>". Until a domain is    */
-/*                        verified in Resend, use "onboarding@resend.dev" */
-/*                        — but that only delivers to your own Resend     */
-/*                        account email, not arbitrary customers.         */
-/*    NOTIFY_EMAIL      — where enquiry notifications should be sent      */
+/*    BREVO_API_KEY   — from brevo.com (Settings > SMTP & API > API Keys) */
+/*    BREVO_FROM_EMAIL — your verified sender, e.g. info@arihantfinance.co*/
+/*    BREVO_FROM_NAME  — display name, e.g. "Arihant Finance"             */
+/*    NOTIFY_EMAIL     — where enquiry notifications should be sent       */
 /* ==================================================================== */
 
-async function sendViaResend({ to, replyTo, subject, text, html }) {
-  if (!process.env.RESEND_API_KEY) {
-    console.log("Email not configured — skipping. Set RESEND_API_KEY / RESEND_FROM / NOTIFY_EMAIL in Railway.");
+async function sendViaBrevo({ to, replyTo, subject, text, html }) {
+  if (!process.env.BREVO_API_KEY) {
+    console.log("Email not configured — skipping. Set BREVO_API_KEY / BREVO_FROM_EMAIL / NOTIFY_EMAIL in Railway.");
     return;
   }
-  const res = await fetch("https://api.resend.com/emails", {
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+      "api-key": process.env.BREVO_API_KEY,
       "Content-Type": "application/json",
+      "Accept": "application/json",
     },
     body: JSON.stringify({
-      from: process.env.RESEND_FROM || "onboarding@resend.dev",
-      to: [to],
-      reply_to: replyTo,
+      sender: {
+        email: process.env.BREVO_FROM_EMAIL || "info@arihantfinance.co",
+        name: process.env.BREVO_FROM_NAME || "Arihant Finance",
+      },
+      to: [{ email: to }],
+      replyTo: replyTo ? { email: replyTo } : undefined,
       subject,
-      text,
-      html,
+      textContent: text,
+      htmlContent: html || `<pre>${text}</pre>`,
     }),
   });
   if (!res.ok) {
     const body = await res.text();
-    throw new Error(`Resend API error (${res.status}): ${body}`);
+    throw new Error(`Brevo API error (${res.status}): ${body}`);
   }
 }
 
 async function sendBusinessNotificationEmail(entry) {
-  await sendViaResend({
-    to: process.env.NOTIFY_EMAIL || process.env.RESEND_FROM,
+  await sendViaBrevo({
+    to: process.env.NOTIFY_EMAIL || process.env.BREVO_FROM_EMAIL,
     replyTo: entry.email,
     subject: `New Enquiry — ${entry.interest} (${entry.name})`,
     text: [
@@ -120,7 +121,7 @@ async function sendBusinessNotificationEmail(entry) {
 }
 
 async function sendCustomerConfirmationEmail(entry) {
-  await sendViaResend({
+  await sendViaBrevo({
     to: entry.email,
     subject: `We've received your enquiry — Arihant Finance`,
     text: [
