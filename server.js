@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
-const nodemailer = require("nodemailer");
 const mysql = require("mysql2/promise");
 
 const app = express();
@@ -62,35 +61,48 @@ async function saveEnquiryToDB(entry) {
 }
 
 /* ==================================================================== */
-/*  EMAIL — Nodemailer via Gmail SMTP                                    */
-/*  Set these as environment variables in Railway (Settings > Variables):*/
-/*    GMAIL_USER          — the Gmail address sending notifications      */
-/*    GMAIL_APP_PASSWORD  — a Gmail "App Password" (not your login pw)   */
-/*    NOTIFY_EMAIL        — where enquiry notifications should be sent   */
+/*  EMAIL — Resend (HTTPS API, not SMTP)                                  */
+/*  Railway blocks outbound SMTP for many accounts, so email is sent via  */
+/*  a normal HTTPS request instead, which is never blocked this way.      */
+/*  Set these as environment variables in Railway (Settings > Variables): */
+/*    RESEND_API_KEY   — from resend.com (API Keys page)                  */
+/*    RESEND_FROM       — a verified sender, e.g. "Arihant Finance        */
+/*                        <noreply@yourdomain.com>". Until a domain is    */
+/*                        verified in Resend, use "onboarding@resend.dev" */
+/*                        — but that only delivers to your own Resend     */
+/*                        account email, not arbitrary customers.         */
+/*    NOTIFY_EMAIL      — where enquiry notifications should be sent      */
 /* ==================================================================== */
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // STARTTLS on port 587, instead of implicit TLS on 465 — more reliable on some cloud hosts
-  family: 4, // force IPv4 — some hosts have broken/slow IPv6 routing to external services
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-});
-
-async function sendBusinessNotificationEmail(entry) {
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    console.log("Email not configured — skipping notification. Set GMAIL_USER / GMAIL_APP_PASSWORD / NOTIFY_EMAIL in Railway.");
+async function sendViaResend({ to, replyTo, subject, text, html }) {
+  if (!process.env.RESEND_API_KEY) {
+    console.log("Email not configured — skipping. Set RESEND_API_KEY / RESEND_FROM / NOTIFY_EMAIL in Railway.");
     return;
   }
-  await transporter.sendMail({
-    from: `"Arihant Finance Website" <${process.env.GMAIL_USER}>`,
-    to: process.env.NOTIFY_EMAIL || process.env.GMAIL_USER,
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: process.env.RESEND_FROM || "onboarding@resend.dev",
+      to: [to],
+      reply_to: replyTo,
+      subject,
+      text,
+      html,
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`Resend API error (${res.status}): ${body}`);
+  }
+}
+
+async function sendBusinessNotificationEmail(entry) {
+  await sendViaResend({
+    to: process.env.NOTIFY_EMAIL || process.env.RESEND_FROM,
     replyTo: entry.email,
     subject: `New Enquiry — ${entry.interest} (${entry.name})`,
     text: [
@@ -108,12 +120,7 @@ async function sendBusinessNotificationEmail(entry) {
 }
 
 async function sendCustomerConfirmationEmail(entry) {
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    console.log("Email not configured — skipping customer confirmation.");
-    return;
-  }
-  await transporter.sendMail({
-    from: `"Arihant Finance Public Limited Company" <${process.env.GMAIL_USER}>`,
+  await sendViaResend({
     to: entry.email,
     subject: `We've received your enquiry — Arihant Finance`,
     text: [
