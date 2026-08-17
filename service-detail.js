@@ -83,7 +83,23 @@ function renderServiceDetail() {
   const id = getServiceId();
   const service = SERVICES.find((s) => s.id === id) || SERVICES[0];
 
-  document.title = service.name + " — Arihant Finance Public Limited Company";
+  const pageTitle = `${service.name} — Arihant Finance Public Limited Company`;
+  const pageDesc = `${service.tagline} Amount: ${service.amount}. Tenure: ${service.tenure}. Rate: ${service.rate}.`;
+  const pageUrl = `https://www.arihantfinance.co/service-detail.html?id=${service.id}`;
+
+  document.title = pageTitle;
+  const setEl = (elId, attr, value) => {
+    const el = document.getElementById(elId);
+    if (el) el.setAttribute(attr, value);
+  };
+  setEl("metaDescription", "content", pageDesc);
+  setEl("canonicalLink", "href", pageUrl);
+  setEl("ogTitle", "content", pageTitle);
+  setEl("ogDescription", "content", pageDesc);
+  setEl("ogUrl", "content", pageUrl);
+  setEl("twitterTitle", "content", pageTitle);
+  setEl("twitterDescription", "content", pageDesc);
+
   const container = document.getElementById("serviceDetailContent");
   if (!container) return;
   container.innerHTML = serviceDetailHTML(service);
