@@ -7,6 +7,18 @@ const mysql = require("mysql2/promise");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Force HTTPS: Railway terminates SSL at its proxy and forwards requests to
+// this app as plain HTTP internally, adding an x-forwarded-proto header that
+// tells us what the visitor's browser actually used. If it wasn't https,
+// redirect them to the secure version instead of silently allowing http.
+app.use((req, res, next) => {
+  const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
+  if (!isLocal && req.headers["x-forwarded-proto"] !== "https") {
+    return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`);
+  }
+  next();
+});
+
 app.use(express.json());
 
 /* ==================================================================== */
